@@ -98,6 +98,8 @@ python src/main.py
 ## Results
 The evaluation results, including average ROUGE-1, ROUGE-2, ROUGE-L, BLEU, and F1 scores, are printed for each model.
 
+![results](https://github.com/user-attachments/assets/7e200e4b-2d29-4727-9c78-d9459601aa6b)
+
 
 ## Future Work
 1. **Model Improvements:** Suggest improvements to models or preprocessing techniques based on findings.
