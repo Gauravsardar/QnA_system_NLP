@@ -1,4 +1,4 @@
-
+![indigo_logo](https://github.com/user-attachments/assets/e16bcaad-aa05-44ee-8596-c4951eeed4a0)
 
 # Quora QA Analysis
 
