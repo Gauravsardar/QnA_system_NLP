@@ -3,6 +3,9 @@
 # Quora Q&A System
 
 This project analyzes and compares NLP models like BERT, T5 and GPT2 on the Quora Question-Answer dataset, using metrics such as ROUGE, BLEU, and F1 scores.
+1. The repository includes two Jupyter Notebook files: **indigo_task_final (1).ipynb**, which covers routine preprocessing tasks such as tokenization, stemming, and lemmatization.
+2. Another one, **indigo_novel_improvements.ipynb**, which explores alternative preprocessing techniques learned from various sources.
+3. The results from both approaches show minimal variance.
 
 ## Table of Contents
 
