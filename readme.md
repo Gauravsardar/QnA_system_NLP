@@ -100,6 +100,8 @@ The evaluation results, including average ROUGE-1, ROUGE-2, ROUGE-L, BLEU, and F
 
 ![results](https://github.com/user-attachments/assets/7e200e4b-2d29-4727-9c78-d9459601aa6b)
 
+![c5f0eb59-a61d-4eae-90fd-877c20359d16](https://github.com/user-attachments/assets/4c8063e6-30f2-479e-845b-a52357a6fba9)
+
 
 ## Future Work
 1. **Model Improvements:** Suggest improvements to models or preprocessing techniques based on findings.
