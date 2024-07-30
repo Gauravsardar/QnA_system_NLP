@@ -1,207 +1,105 @@
-﻿\```markdown
 
-\# Quora QA Analysis
 
-This project analyzes and compares NLP models on the Quora Question-Answer dataset, using metrics such as ROUGE, BLEU, and F1 scores.
+# Quora QA Analysis
 
-\## Table of Contents
+This project analyzes and compares NLP models like BERT, T5 and GPT2 on the Quora Question-Answer dataset, using metrics such as ROUGE, BLEU, and F1 scores.
 
-\- [Introduction](#introduction)
+## Table of Contents
 
-\- [Setup](#setup)
+- [Introduction](#introduction)
+- [Setup](#setup)
+- [Usage](#usage)
+- [Results](#results)
+- [Future Work](#future-work)
 
-\- [Project Structure](#project-structure)
-
-\- [Usage](#usage)
-
-\- [Results](#results)
-
-\- [Future Work](#future-work)
-
-\## Introduction
+## Introduction
 
 This project evaluates different NLP models' performance in answering questions from the Quora dataset. Models compared include BERT, FLAN-T5, and GPT-2, with metrics such as ROUGE, BLEU, and F1 scores used for evaluation.
 
-\## Setup
+## Setup
 
-1\. \*\*Clone the repository:\*\*
+1. **Clone the repository:**
 
-`   ````bash
+   ```bash
+   git clone https://github.com/yourusername/quora-qa-analysis.git
+   cd quora-qa-analysis
+   ```
 
-`   `git clone https://github.com/yourusername/quora-qa-analysis.git
+2. **Install dependencies:**
 
-`   `cd quora-qa-analysis
+  ```bash
+  pip install -r requirements.txt
+  ```
 
-`   ````
+3. **Load the dataset:**
+ 
+  ```bash
+  df = pd.read_json("hf://datasets/toughdata/quora-question-answer-dataset/Quora-QuAD.jsonl")
+  ```
 
-2\. \*\*Install dependencies:\*\*
+4. **Run the project:**
 
-`   ````bash
+  ```bash
+  bash run.sh
+  ```
 
-`   `pip install -r requirements.txt
+## Usage
 
-`   ````
+1. **Preprocess the data:**
 
-3\. \*\*Download the dataset:\*\*
+```bash
+# Example from preprocess.py
+def preprocess_text(text):
+    tokens = nltk.word_tokenize(text)
+    tokens = [word for word in tokens if word not in stop_words]
+    tokens = [stemmer.stem(word) for word in tokens]
+    return ' '.join(tokens)
 
-`   `Place the dataset file `Quora-QuAD.jsonl` in the `data/` directory.
+  ```
 
-4\. \*\*Run the project:\*\*
+2. **Generate answers using models:**
 
-`   ````bash
 
-`   `bash run.sh
+```bash
+# Example from generate_answers.py
+def get_answer(question, context, model_name):
+    qa = pipelines[model_name]
+    result = qa(question=question, context=context)
+    return result['answer']
 
-`   ````
 
-\## Project Structure
+  ```
 
-\```
+3. **Evaluate the models:**
 
-quora-qa-analysis/
 
-│
+```bash
+# Example from evaluate.py
+def calculate_metrics(reference, predicted):
+    rouge_scores = scorer.score(reference, predicted)
+    bleu_score = sentence_bleu([reference_tokens], predicted_tokens)
+    # F1 score calculation
+    return {
+        'rouge1': rouge_scores['rouge1'].fmeasure,
+        'rouge2': rouge_scores['rouge2'].fmeasure,
+        'rougeL': rouge_scores['rougeL'].fmeasure,
+        'bleu': bleu_score,
+        'f1': f1
+    }
 
-├── data/
+```
 
-│   └── Quora-QuAD.jsonl
+4. **Run the main script:**
+```bash
+python src/main.py
 
-│
+```
 
-├── models/
-
-│   ├── bert/
-
-│   │   ├── config.json
-
-│   │   ├── pytorch\_model.bin
-
-│   │   └── tokenizer.json
-
-│   ├── flan\_t5/
-
-│   │   ├── config.json
-
-│   │   ├── pytorch\_model.bin
-
-│   │   └── tokenizer.json
-
-│   └── gpt2/
-
-│       ├── config.json
-
-│       ├── pytorch\_model.bin
-
-│       └── tokenizer.json
-
-│
-
-├── src/
-
-│   ├── preprocess.py
-
-│   ├── evaluate.py
-
-│   ├── generate\_answers.py
-
-│   └── main.py
-
-│
-
-├── requirements.txt
-
-├── README.md
-
-└── run.sh
-
-\```
-
-\## Usage
-
-1\. \*\*Preprocess the data:\*\*
-
-`   ````python
-
-`   `# Example from preprocess.py
-
-`   `def preprocess\_text(text):
-
-`       `tokens = nltk.word\_tokenize(text)
-
-`       `tokens = [word for word in tokens if word not in stop\_words]
-
-`       `tokens = [stemmer.stem(word) for word in tokens]
-
-`       `return ' '.join(tokens)
-
-`   ````
-
-2\. \*\*Generate answers using models:\*\*
-
-`   ````python
-
-`   `# Example from generate\_answers.py
-
-`   `def get\_answer(question, context, model\_name):
-
-`       `qa = pipelines[model\_name]
-
-`       `result = qa(question=question, context=context)
-
-`       `return result['answer']
-
-`   ````
-
-3\. \*\*Evaluate the models:\*\*
-
-`   ````python
-
-`   `# Example from evaluate.py
-
-`   `def calculate\_metrics(reference, predicted):
-
-`       `rouge\_scores = scorer.score(reference, predicted)
-
-`       `bleu\_score = sentence\_bleu([reference\_tokens], predicted\_tokens)
-
-`       `# F1 score calculation
-
-`       `return {
-
-`           `'rouge1': rouge\_scores['rouge1'].fmeasure,
-
-`           `'rouge2': rouge\_scores['rouge2'].fmeasure,
-
-`           `'rougeL': rouge\_scores['rougeL'].fmeasure,
-
-`           `'bleu': bleu\_score,
-
-`           `'f1': f1
-
-`       `}
-
-`   ````
-
-4\. \*\*Run the main script:\*\*
-
-`   ````bash
-
-`   `python src/main.py
-
-`   ````
-
-\## Results
-
+## Results
 The evaluation results, including average ROUGE-1, ROUGE-2, ROUGE-L, BLEU, and F1 scores, are printed for each model.
 
-\## Future Work
 
-\- \*\*Model Improvements:\*\* Suggest improvements to models or preprocessing techniques based on findings.
-
-\- \*\*Enhancements:\*\* Consider adding data sources or using ensemble methods to leverage multiple models' strengths.
-
-\- \*\*Further Analysis:\*\* Investigate advanced metrics and perform error analysis to understand model limitations and strengths.
-
-\```
-
-You can copy and paste this markdown into your `README.md` file on GitHub.
+## Future Work
+1. **Model Improvements:** Suggest improvements to models or preprocessing techniques based on findings.
+2. **Enhancements:** Consider adding data sources or using ensemble methods to leverage multiple models' strengths.
+3. **Further Analysis:** Investigate advanced metrics and perform error analysis to understand model limitations and strengths.
