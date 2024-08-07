@@ -1,5 +1,3 @@
-![indigo_logo](https://github.com/user-attachments/assets/e16bcaad-aa05-44ee-8596-c4951eeed4a0)
-
 # Quora Q&A System
 
 This project analyzes and compares NLP models like BERT, T5 and GPT2 on the Quora Question-Answer dataset, using metrics such as ROUGE, BLEU, and F1 scores.
